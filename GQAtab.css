@@ -1,0 +1,112 @@
+*{
+    margin: 0;
+    padding: 0;
+    font: 12px;
+}
+body{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.container{
+    
+    background: rgba(0, 0, 0, 0.1);
+    border-top: 1px solid #ad6767;
+    /*border-radius: 3px;
+    border: 1px solid #ad6767;*/
+    box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.2);
+}
+/* 标签栏 */
+nav{
+    width: 865px;
+    display: flex;
+    background: #fff;
+}
+nav .GQAitem{
+    width: 160px;
+    height: 72px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    /* 相对定位 */
+    position: relative;
+    /* 溢出隐藏 */
+    overflow: hidden;
+}
+
+/* 图标背景圆 */
+nav .GQAitem::before{
+    content: "";
+    width: 160px;
+    height: 0px;
+    background-color: #ad6767;
+    /*border-radius: 50%;
+     绝对定位 */
+    position: absolute;
+    /* 过渡效果 */
+    transition: 0.3s;
+    color: #fff;
+}
+nav .GQAitem .fa{
+    color: #ad6767;
+    position: relative;
+    font-size: 24px;
+}
+/* 标签选中态样式 */
+nav .GQAitem.active::before{
+    width: 150%;
+    height: 150%;
+    color: #ad6767;
+}
+nav .GQAitem.active .fa{
+    color: #fff;
+    position: relative;
+    font-size: 24px;
+}
+/* 内容区 */
+.content{
+    width: 100%;
+    height: 600px;
+    border-top: 2px solid #ad6767;
+    position: relative;
+    
+}
+section{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position:absolute;
+    /* 默认隐藏 */
+    opacity: 0;
+    /* 不透明度改变时的过渡效果 */
+    transition: opacity 0.4s;
+    z-index: 1;
+    flex-wrap: wrap;
+    overflow-y:auto;
+    
+}
+section .instruction{
+    width: 100%;
+    font-size: 18px;
+   /* font-weight: bold;*/
+    color: #0c524f;
+}
+/* 内容区选中态样式 */
+section.active{
+    opacity: 1;
+    z-index: 9;
+    
+}
+#product_sel{
+    width: 500px;
+    height: auto;
+}
+select.sel_sel{
+    width:250px;
+    margin-left:120px;
+    font-size:18px;
+}
