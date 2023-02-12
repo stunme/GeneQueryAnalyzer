@@ -17,12 +17,61 @@ function removeActive(){
 // 遍历所有标签
 items.forEach((item,index)=>{
     // 为每个标签绑定点击事件
-    item.addEventListener('click',function(){
-        // 移除选中态样式
-        removeActive();
-        // 为当前标签添加选中样式
-        item.classList.add('active');
-        // 为当前内容区添加选中样式
-        sections[index].classList.add('active');
-    })
+    switch(index){
+        case 3:
+            item.addEventListener('click',function(){
+                if(isNotValidData()){
+                    alert("Invalid data found. Please check your input.");
+                    return;
+                }
+                removeActive();
+                // 为当前标签添加选中样式
+                item.classList.add('active');
+                // 为当前内容区添加选中样式
+                sections[index].classList.add('active');
+            });
+            break;
+        case 2:
+            item.addEventListener('click',function(){
+                if(isNotValidData()){
+                    alert("Invalid data found. Please check your input.");
+                    return;
+                }
+                removeActive();
+                // 为当前标签添加选中样式
+                item.classList.add('active');
+                // 为当前内容区添加选中样式
+                sections[index].classList.add('active');
+            });
+            break;
+        default:
+            item.addEventListener('click',function(){
+                removeActive();
+                // 为当前标签添加选中样式
+                item.classList.add('active');
+                // 为当前内容区添加选中样式
+                sections[index].classList.add('active');
+            });
+    }
+    /*
+    item.addEventListener('click',function(){      
+        if(index == 3){
+            if(isNotValidData() || !isCaculateDone()){
+                alert("Invalid data found. Please check your input.");
+                return;
+            }
+        }
+        if(index ==4){
+            
+            
+        }
+
+            // 移除选中态样式
+            removeActive();
+            // 为当前标签添加选中样式
+            item.classList.add('active');
+            // 为当前内容区添加选中样式
+            sections[index].classList.add('active');
+        
+    })*/
 })

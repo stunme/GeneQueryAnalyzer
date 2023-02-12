@@ -1,31 +1,213 @@
-var plateIdx = ["A1","A2","A3","A4","A5","A6","A7","A8","A9","A10","A11","A12",
-                "B1","B2","B3","B4","B5","B6","B7","B8","B9","B10","B11","B12",
-                "C1","C2","C3","C4","C5","C6","C7","C8","C9","C10","C11","C12",
-                "D1","D2","D3","D4","D5","D6","D7","D8","D9","D10","D11","D12",
-                "E1","E2","E3","E4","E5","E6","E7","E8","E9","E10","E11","E12",
-                "F1","F2","F3","F4","F5","F6","F7","F8","F9","F10","F11","F12",
-                "G1","G2","G3","G4","G5","G6","G7","G8","G9","G10","G11","G12",
-                "H1","H2","H3","H4","H5","H6","H7","H8","H9","H10","H11","H12",];
+var vSpecies,vProductName,vPlateNum,geneName,controlGene;
+productOptions();
+showLayout();
+setSampleNum();
+setDataTableHead();
+setEmptyDataTable();
 
-var plateXIdx = ["1","2","3","4","5","6","7","8","9","10","11","12"];
-var plateYIdx = ["A","B","C","D","E","F","G","H"];
+function productOptions(){
+    vSpecies = $("#Species option:selected");
 
-var vSpices = $("#Spices option:selected");
-var vProductName = $("#ProductName option:selected");
-var vPlateLayout = $("#PlateLayout option:selected");
+    $('select#ProductName>option').remove();
 
-function selectTest(){
-    vSpices = $("#Spices option:selected");
-    vProductName = $("#ProductName option:selected");
-    vPlateLayout = $("#PlateLayout option:selected");
-// alert(vProductName.text())
+    var dataHtml = '';
+    for (var i = 0;i<productList.length;i++){
+        var dummy = eval(productList[i]);
+        if(dummy[0] == vSpecies.text() || vSpecies.text() == "All Species"){
+            dataHtml += "<option value='" + (productList[i]) + "'>";
+            dataHtml += productList[i] + " - " + dummy[1];
+            dataHtml += "</option>"
+        }
+    }
+    $('select#ProductName').append(dataHtml);
 }
 
-var GK101 = ["ACTB","GAPDH",'LDHA',"ACTB","GAPDH",'LDHA',"ACTB","GAPDH",'LDHA',"ACTB","GAPDH",'LDHA',
-              "ACTB","GAPDH",'LDHA',"ACTB","GAPDH",'LDHA',"ACTB","GAPDH",'LDHA',"ACTB","GAPDH",'LDHA',
-              "ACTB","GAPDH",'LDHA',"ACTB","GAPDH",'LDHA',"ACTB","GAPDH",'LDHA',"ACTB","GAPDH",'LDHA',
-              "ACTB","GAPDH",'LDHA',"ACTB","GAPDH",'LDHA',"ACTB","GAPDH",'LDHA',"ACTB","GAPDH",'LDHA',
-              "ACTB","GAPDH",'LDHA',"ACTB","GAPDH",'LDHA',"ACTB","GAPDH",'LDHA',"ACTB","GAPDH",'LDHA',
-              "ACTB","GAPDH",'LDHA',"ACTB","GAPDH",'LDHA',"ACTB","GAPDH",'LDHA',"ACTB","GAPDH",'LDHA',
-              "ACTB","GAPDH",'LDHA',"ACTB","GAPDH",'LDHA',"ACTB","GAPDH",'LDHA',"ACTB","GAPDH",'LDHA',
-              "ACTB","GAPDH",'LDHA',"ACTB","GAPDH",'LDHA',"ACTB","GAPDH",'LDHA',"ACTB","GAPDH",'LDHA'];
+function showLayout(){
+    vProductName = $("#ProductName option:selected");
+
+    $('table#productLayout>tbody>tr.plateRowHead').remove();
+    $('table#productLayout>tbody>tr.plateRow').remove();
+    
+    var dataHtml = '';
+    dataHtml += '<tr class="plateRowHead">';
+    dataHtml += '<th>  </th>'
+    for (var i = 1; i < 13; i++){
+        dataHtml += '<th>' + i +  '</th>'
+    }
+    //alert(plateYIdx.length);
+    geneName = eval(vProductName.val())[5].split(",");
+    controlGene = eval(vProductName.val())[3].split(",");
+    for (i = 0; i < plateYIdx.length; i++) {
+        //alert(vProductName);
+        dataHtml += '<tr class="plateRow">';
+        dataHtml += '<td>' + (plateYIdx[i] || '&nbsp;') + '</td>';
+        //alert(dataHtml);
+        for (var j = 0; j<12; j++){
+            dataHtml += '<td>' + (geneName[i*12+j] || '&nbsp;') + ' </td>';
+        }
+        dataHtml += '</tr>';
+    }
+    //alert(dataHtml);
+    $('table#productLayout>tbody>tr').after(dataHtml);
+// alert(vProductName.text())
+
+}
+
+function setSampleNum(){
+    vPlateNum = $("#PlateNum option:selected");   
+}
+
+function setDataTableHead(){
+    $('table#gqPlateData>tbody>tr').remove();
+    dataHtml = '';
+    dataHtml += '<tr>';
+    dataHtml += '<td colspan="2"><div id="pasteAll"><span><p>Paste</p>All Data</span></div></th>';
+    dataHtml += '<td>&nbsp;</td>';
+    for (var i = 1; i<=vPlateNum.text();i++){
+        dataHtml += '<td><div class="pastePlate"><span><p>Paste</p>Plate '+ (i) + '</span></div></td>';
+    }
+    dataHtml += '</tr>';
+//    alert(dataHtml);
+    //$('table#gqPlateData>tbody').append(dataHtml);
+    //dataHtml = '';
+    dataHtml += '<tr>';
+    dataHtml += '<td>ID</td><td>Control</td><td>Gene</td>';
+    for (var i = 1; i<=vPlateNum.text();i++){
+        if(vPlateNum.text() == 1){
+            dataHtml += '<td>Plate1';
+        }else{
+            dataHtml += '<td><div class="dropdown">';
+            dataHtml += '<button class="dropbtn">Plate'+i+'</button>';
+            dataHtml += '<div class="dropdown-content">';
+            dataHtml += '<a>Ungroup</a>'
+            dataHtml += '<a>Reference</a>';
+            var GroupsNum = parseInt(vPlateNum.text()/2);
+            for(var j=0;j<GroupsNum;){
+                dataHtml += '<a>Group'+ (++j) +'</a>';
+            }
+            dataHtml += '</div></div>'
+        }
+        dataHtml += '</td>';    
+    }
+    dataHtml += '</tr>';
+    $('table#gqPlateData>tbody').append(dataHtml);
+    //alert($('table#gqPLateData').textContent);
+
+    //设置分组后标签显示
+    function setGroupName(index){
+        
+    }
+    
+    var PlateTitleColor = ["#f1f1f1", "#e9f3f9","#f9f8e9","#f1e9f9","#e9f9ec","#f9e9f4","#f9e9e9","#f9f9e9","#e5e5e5"];
+
+    document.querySelectorAll('.dropdown-content').forEach((item,index)=>{
+        item.querySelectorAll('a').forEach((itm,idx)=>{
+                itm.addEventListener('click',function(){
+                    
+                    var current = document.getElementsByClassName('dropbtn')[index];
+                    
+                    switch(idx){
+                        case 0:
+                            var j = index+1;
+                            current.innerText = 'Plate' + j;
+                            break;
+                        case 1:
+                            current.innerText = 'Ref.';
+                            break;
+                        default:
+                            var j = idx-1;
+                            current.innerText = 'Group' + j;
+                    }
+                    if(idx<7){
+                        current.parentNode.parentNode.style.backgroundColor = PlateTitleColor[idx];
+                        document.querySelectorAll('.datarow').forEach((Row)=>{
+                            if(idx==0){
+                                Row.cells[index+3].style.backgroundColor = "white";
+                            }else{
+                                Row.cells[index+3].style.backgroundColor = PlateTitleColor[idx];
+                            }
+                        }
+
+                        )
+                    }else{
+                        current.parentNode.parentNode.style.backgroundColor = PlateTitleColor[7];
+                    }
+
+                })
+            }
+        )
+    }
+    )
+
+    document.querySelectorAll('.pastePlate').forEach((item,index)=> {
+        item.addEventListener('click',function(){
+            navigator.clipboard.readText().then((clipboardData)=>{
+                PasteOnePlate(clipboardData,index);
+            })
+        })   
+    });   
+
+    function PasteOnePlate(clipboardData,index){
+        var data = clipboardData.split('\n');
+        for (var i = 0; i<96; i++){
+            if (!data[i]) {
+                var tempData = []
+                //continue ;
+            }else{
+                var tempData = data[i].split('\t');
+            } 
+            document.getElementsByClassName('datarow')[i].cells[3+index].innerText = tempData[0] || '';
+        } 
+    }
+
+    document.getElementById('pasteAll').addEventListener('click',function(){
+        navigator.clipboard.readText().then((clipboardData)=>{
+            PasteAll(clipboardData);
+        });
+    });
+
+    function PasteAll(clipboardData){
+        var data = clipboardData.split('\n');
+        var datarows = document.getElementsByClassName('datarow');
+        for (var i = 0; i<96; i++){
+            
+            if (!data[i]) {
+                var tempData = []
+                //continue ;
+            }else{
+                var tempData = data[i].split('\t');
+            } 
+            for(var j = 0; j<vPlateNum.text(); j++){
+                datarows[i].cells[j+3].innerText = tempData[j] || '';
+                
+            }
+        }
+    }
+}
+
+
+function setEmptyDataTable(){
+   // $('table#gqPlateData>tr.datarow').remove();
+//    var data = clipboardData.getData('Text').split('\n');
+
+    var dataHtml = '';
+    for (var i = 0; i < 96; i++) {
+        dataHtml += '<tr class="datarow">';
+        dataHtml += '<td>' + (plateIdx[i] || '&nbsp;') + '</td>';
+        
+        if(controlGene.find(element => element ==i)){
+            dataHtml += '<td>' + '<input type="checkbox" checked> ' + '</td>';
+        }else{
+            //alert(eval(vProductName.val())[4] + (plateIdx[i]))
+            dataHtml += '<td>' + '<input type="checkbox"> ' + '</td>';
+        }
+        dataHtml += '<td>' + (geneName[i] || '&nbsp;') + '</td>';
+        for (var j = 0;j<vPlateNum.text();j++){
+            //alert(bugdetData[j]);
+            dataHtml += '<td contenteditable="true">' + '&nbsp;' + '</td>';
+        }
+        dataHtml += '</tr>';     
+    }
+    $('table#gqPlateData>tbody').append(dataHtml);
+
+}
