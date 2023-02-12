@@ -1,0 +1,337 @@
+*{
+    margin: 0;
+    padding: 0;
+    font: 12px;
+    font-family: arial, helvetica, sans-serif;
+}
+body{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.container{
+    
+    background: rgb(250, 250, 250);
+    border-top: 1px solid #ad6767;
+    /*border-radius: 3px;
+    border: 1px solid #ad6767;*/
+    box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.2);
+}
+/* 标签栏 */
+nav{
+    width: 865px;
+    display: flex;
+    background: #fff;
+}
+nav .GQAitem{
+    width: 160px;
+    height: 72px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    /* 相对定位 */
+    position: relative;
+    /* 溢出隐藏 */
+    overflow: hidden;
+}
+
+/* 图标背景圆 */
+nav .GQAitem::before{
+    content: "";
+    width: 160px;
+    height: 0px;
+    background-color: #ad6767;
+    /*border-radius: 50%;
+     绝对定位 */
+    position: absolute;
+    /* 过渡效果 */
+    transition: 0.3s;
+    color: #fff;
+}
+nav .GQAitem .fa{
+    color: #ad6767;
+    position: relative;
+    font-size: 20px;
+}
+/* 标签选中态样式 */
+nav .GQAitem.active::before{
+    width: 150%;
+    height: 150%;
+    color: #ad6767;
+}
+nav .GQAitem.active .fa{
+    color: #fff;
+    position: relative;
+    font-size: 20px;
+}
+/* 内容区 */
+.content{
+    width: 100%;
+    height: 600px;
+    border-top: 2px solid #ad6767;
+    position: relative;
+    
+}
+section{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: baseline;
+    position:absolute;
+    /* 默认隐藏 */
+    opacity: 0;
+    /* 不透明度改变时的过渡效果 */
+    transition: opacity 0.4s;
+    z-index: 1;
+    flex-wrap: wrap;
+    overflow-y:auto;
+    
+}
+section .instruction{
+    width: 100%;
+    font-size: 16px;
+   /* font-weight: bold;*/
+    color: #0c524f;
+}
+/* 内容区选中态样式 */
+section.active{
+    opacity: 1;
+    z-index: 9;
+    
+}
+#SelectorContainer{
+    width: 700px;
+    height: auto;
+    padding-top: 30px;
+}
+select.selector{
+    width:600px;
+    margin-left:50px;
+    font-size:15px;
+}
+
+#productLayout{
+    border-collapse:collapse;
+}
+
+#productLayout tr {
+    height: 25px;
+    background-color: #aecae5;
+    text-align: center;
+    font-size: 13px;
+}
+
+#productLayout tr:nth-child(odd){
+    background: #eccdcd ;
+}
+  
+#productLayout tr:nth-child(even){
+    background:rgb(247, 244, 244);
+}
+
+#productLayout th{
+    background:rgb(250, 250, 250);
+}
+#productLayout td:first-child{
+    background: rgb(250, 250, 250);
+    text-align: left;
+    width: 25px;
+}
+
+#productLayout th:nth-child(n+2), #productLayout tr:last-child td:nth-child(n+2){
+    border-bottom: 2px solid black;
+}
+
+#productLayout td:first-child, #productLayout td:last-child{
+    border-right: 2px solid black;
+}
+
+#productLayout td{
+    width: 52px;
+}
+
+#productLayout .plateRowHead{
+    font-weight: bold;
+    font-size: 16px;
+} 
+
+#productLayout th:first-child , td:first-child{
+    font-weight: bold;
+    font-size: 16px;      
+    border-bottom-left-radius: 3px;
+    border-top-left-radius: 3px; 
+}
+
+#gqPlateDataSection{
+    width: 95%;
+}
+
+
+#gqPlateData{
+    table-layout: fixed;
+    text-align: center;
+    border-collapse: collapse;
+    border: 0px;
+    border-bottom: 1px solid black;
+}
+
+#gqPlateData td{
+    min-width: 80px;
+    border: 0px;
+    min-height: 40px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+#gqPlateData tr:nth-child(n+2) td{
+    background: #f1f1f1;
+    border:1px solid #e5e5e5;
+}
+
+#gqPlateData tr.datarow td:nth-child(n+4){
+    cursor: cell;
+    background: white;
+}
+
+#gqPlateData tr.datarow td:nth-child(n+3){
+    font-size: 14px;
+}
+
+#gqPlateData tr:nth-child(2) td{
+    /*border-top: 1px solid black;*/
+    padding-top: 10px;
+    font-weight: 600;
+}
+
+#gqPlateData tr:nth-child(n+2){
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+}
+
+
+#gqPlateData tr:first-child td{
+    padding-bottom: 10px;
+}
+
+#pasteAll{
+    cursor: pointer;  
+    width: 80%;
+    height: 65px;
+    background: linear-gradient(225deg, transparent 18px, #eccdcd 0);
+    position: relative;
+    border-radius: 0.5em;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    border: 0px;
+    font: 16px;
+    font-weight: 700;
+    padding-bottom: 10px;
+}
+#pasteAll span{
+    align-self: flex-end;
+}
+
+#pasteAll::after{
+    content: "";
+    position: absolute;
+    right: 0px;
+    top:0px;
+    background: linear-gradient(-135deg, transparent 50%, #eccdcd 0);
+    width: 25px;
+    height: 25px;
+    border-bottom-left-radius: 4px;
+    box-shadow: -0.2em 0.2em 0.2em #7a3a44;
+}
+
+div.pastePlate{
+    cursor: pointer;  
+    width: 95%;
+    height: 65px;
+    background: linear-gradient(225deg, transparent 18px, #eccdcd 0);
+    position: relative;
+    border-radius: 0.5em;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    border: 0px;
+    font-size: 14px;
+    padding-bottom: 10px;
+    font-weight: 700;
+}
+div.pastePlate span{
+    align-self: flex-end;
+}
+div.pastePlate::after{
+    content: "";
+    position: absolute;
+    right: 0px;
+    top:0px;
+    background: linear-gradient(-135deg, transparent 50%, #eccdcd 0);
+    width: 25px;
+    height: 25px;
+    border-bottom-left-radius: 4px;
+    box-shadow: -0.2em 0.2em 0.2em #7a3a44;
+}
+
+
+
+
+/* 下拉按钮样式 */
+button.dropbtn {
+    background-color: rgba(255, 255, 255, 0);
+    /*color: white;
+    padding: 5px;*/
+    width: 100%;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+}
+/* 容器 <div> - 需要定位下拉内容 */
+div.dropdown {
+    width: 100%;
+    position: relative;
+    display: inline-block;
+    justify-content: center;
+}
+
+/* 下拉内容 (默认隐藏) */
+div.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    width: 100%;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+/* 下拉菜单的链接 */
+div.dropdown-content a {
+    color: black;
+    padding: 3px;
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+}
+
+/* 鼠标移上去后修改下拉菜单链接颜色 */
+div.dropdown-content a:hover {background-color: #f1f1f1}
+
+/* 在鼠标移上去后显示下拉菜单 */
+div.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* 当下拉内容显示后修改下拉按钮的背景颜色 */
+button.dropdown:hover .dropbtn {
+    background-color: #3e8e41;
+}
+
+
+
+
+
