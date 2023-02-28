@@ -181,7 +181,7 @@ select.option-selector{
 }
 
 #ctrl-output td{
-    min-width: 120px;
+    min-width: 100px;
     padding-bottom: 20px;
     font-size: 16px;
     cursor:default;
@@ -364,9 +364,11 @@ button.dropdown:hover .dropbtn {
 }
 
 #container-plot{
-    width: 90%;
-    height: 90%;
+    width: 750px;
+    height: 540px;
 }
+
+
 
 
 
