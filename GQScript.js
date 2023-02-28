@@ -700,7 +700,7 @@ var currentChart
 function drawScatter(){
     var ctx = document.getElementById('chart-main');
     var data = {
-        labels:[],
+        //labels:[],
         datasets: [],
     };
 
@@ -714,9 +714,9 @@ function drawScatter(){
             }
         }
     }
-    for (var j=0;j<96;j++){
+  /*  for (var j=0;j<96;j++){
         data['labels'].push(geneName[j]+ " ("+plateIdx[j] +")");
-    }
+    }*/
    
     var config = {
         type: 'scatter',
@@ -751,28 +751,37 @@ function drawScatter(){
                 },
             },
         },
-          plugins: {
-            legend: {
-              position: 'chartArea',
+            plugins: {
+                legend: {
+                position: 'chartArea',
+                },
+                title: {
+                    font: {
+                        size: 18,
+                        weight: 'bold',
+                        lineHeight: 1.2,
+                    },
+                display: true,
+                text: 'Relative Gene Expression Scatter Chart'
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            var label = context.dataset.label || '';
+                            label +=':' 
+                            label += geneName[context.dataIndex]+ " ("+plateIdx[context.dataIndex] +")   ∆∆RQ="
+                            var ddRQ = Math.pow(2,parseFloat(context.parsed.y)-parseFloat(context.parsed.x));
+                            if(ddRQ>=1){
+                                label+=ddRQ.toFixed(1)
+                            }else{
+                                label+=ddRQ.toPrecision(2)
+                            }
+                            return label ;
+                            //return label + ': (' + tooltipItem.xLabel + ', ' + tooltipItem.yLabel + ')';
+                        }
+                    }
+                }
             },
-            title: {
-                font: {
-                    size: 18,
-                    weight: 'bold',
-                    lineHeight: 1.2,
-                  },
-              display: true,
-              text: '∆Ct Scatter Chart'
-            }
-          },
-          tooltips: {
-            callbacks: {
-               label: function(tooltipItem, data) {
-                  var label = data.labels[tooltipItem.index];
-                  return label + ': (' + tooltipItem.xLabel + ', ' + tooltipItem.yLabel + ')';
-               }
-            }
-         }
         },
       };
     
@@ -784,4 +793,4 @@ function drawScatter(){
         currentChart = new Chart(ctx, config);
     }
 }
-
+//<p>∆∆RQ = = 2^-∆∆Ct = 2^-(∆Ctsample-∆Ctctrl)</p>
