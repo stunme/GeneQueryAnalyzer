@@ -444,7 +444,7 @@ function isNotValidData(){
         var tempData =[];
         for(var i = 1; i<=vPlateNum.text();i++){
             temp = rows[j].cells[i+2].innerText;
-            console.log("-"+"-")
+            //console.log("-"+"-")
             if(temp<50 && temp>0){
                 tempData.push(parseFloat(temp));
             }else if(temp==""){
@@ -452,6 +452,7 @@ function isNotValidData(){
                 tempData.push(0);
             }else{
                 alert("Invalid data in "+ plateIdx[j] + " in Sample " + i);
+                isControl = false;
                 tempData.push(0);
                 //return true;
             }            
