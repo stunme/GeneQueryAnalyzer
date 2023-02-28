@@ -587,17 +587,25 @@ function calculateData(){
         deltaDeltaRQ.push([]);
         deltaDeltaRQErr.push([]);
         for(var i=0;i<96;i++){
-            deltaDeltaCt[j].push(fixTwo(groupedDeltaCt[j][i]-groupedDeltaCt[0][i]));
-            deltaDeltaRQ[j].push(groupedDeltaRQ[j][i]/groupedDeltaRQ[0][i]);
-            if(groupedDeltaCtErr[j][i] == '' && groupedDeltaCtErr[0][i]==''){
+            if(groupedDeltaCt[j][i]=='' || groupedDeltaCt[0][i]==''){
+                deltaDeltaCt[j].push('');
+                deltaDeltaRQ[j].push('');
                 deltaDeltaCtErr[j].push('');
                 deltaDeltaRQErr[j].push('');
-            }else if(groupedDeltaCtErr[j][i] == '' || groupedDeltaCtErr[0][i]==''){
-                deltaDeltaCtErr[j].push(parseFloat(groupedDeltaCtErr[j][i] + groupedDeltaCtErr[0][i]));
-                deltaDeltaRQErr[j].push(parseFloat(groupedDeltaRQErr[j][i] + groupedDeltaRQErr[0][i]));
             }else{
-                deltaDeltaCtErr[j].push(Math.sqrt(Math.pow(groupedDeltaCtErr[j][i],2) + Math.pow(groupedDeltaCtErr[0][i],2)));
-                deltaDeltaRQErr[j].push(Math.pow(Math.E,Math.sqrt(Math.pow(Math.log(groupedDeltaRQErr[0][i]),2) + Math.pow(Math.log(groupedDeltaRQErr[j][i]),2))));
+                deltaDeltaCt[j].push(fixTwo(groupedDeltaCt[j][i]-groupedDeltaCt[0][i]));
+                deltaDeltaRQ[j].push(groupedDeltaRQ[j][i]/groupedDeltaRQ[0][i]);
+            
+                if(groupedDeltaCtErr[j][i] == '' && groupedDeltaCtErr[0][i]==''){
+                    deltaDeltaCtErr[j].push('');
+                    deltaDeltaRQErr[j].push('');
+                }else if(groupedDeltaCtErr[j][i] == '' || groupedDeltaCtErr[0][i]==''){
+                    deltaDeltaCtErr[j].push(parseFloat(groupedDeltaCtErr[j][i] + groupedDeltaCtErr[0][i]));
+                    deltaDeltaRQErr[j].push(parseFloat(groupedDeltaRQErr[j][i] + groupedDeltaRQErr[0][i]));
+                }else{
+                    deltaDeltaCtErr[j].push(Math.sqrt(Math.pow(groupedDeltaCtErr[j][i],2) + Math.pow(groupedDeltaCtErr[0][i],2)));
+                    deltaDeltaRQErr[j].push(Math.pow(Math.E,Math.sqrt(Math.pow(Math.log(groupedDeltaRQErr[0][i]),2) + Math.pow(Math.log(groupedDeltaRQErr[j][i]),2))));
+                }
             }
         }
     }
