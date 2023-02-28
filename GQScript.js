@@ -714,6 +714,7 @@ function drawScatter(){
         data: data,
         options: {
           responsive: true,
+          maintainAspectRatio: false,
           plugins: {
             legend: {
               position: 'top',
