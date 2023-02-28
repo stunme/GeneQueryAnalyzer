@@ -728,8 +728,9 @@ function drawScatter(){
       };
     
     if(currentChart instanceof Chart){
-        currentChart.destory();
+        currentChart.update();
+    }else{
+        currentChart = new Chart(ctx, config);
     }
-    currentChart = new Chart(ctx, config);
 }
 
