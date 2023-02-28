@@ -444,6 +444,7 @@ function isNotValidData(){
         var tempData =[];
         for(var i = 1; i<=vPlateNum.text();i++){
             temp = rows[j].cells[i+2].innerText;
+            console.log("-"+"-")
             if(temp<50 && temp>0){
                 tempData.push(parseFloat(temp));
             }else if(temp==""){
@@ -451,7 +452,8 @@ function isNotValidData(){
                 tempData.push(0);
             }else{
                 alert("Invalid data in "+ plateIdx[j] + " in Sample " + i);
-                return true;
+                tempData.push(0);
+                //return true;
             }            
         }
         allData.push(tempData);
@@ -698,36 +700,85 @@ var currentChart
 function drawScatter(){
     var ctx = document.getElementById('chart-main');
     var data = {
+        labels:[],
         datasets: [],
     };
 
     for(var i=0;i<groupedDeltaCt.length;i++){
         data['datasets'].push({'label':dataHeader[i],'data':[],'backgroundColor':'#'+Math.floor(Math.random()*16777215).toString(16)})
         for(var j =0;j<96;j++){
-
-            data['datasets'][i]['data'].push({'x':groupedDeltaCt[0][j],'y':groupedDeltaCt[i][j]});
+            if(groupedDeltaCt[0][j]==''||groupedDeltaCt[i][j]==''){
+                data['datasets'][i]['data'].push({'x':0,'y':0});
+            }else{
+            data['datasets'][i]['data'].push({'x':-groupedDeltaCt[0][j],'y':-groupedDeltaCt[i][j]});
+            }
         }
     }
-
+    for (var j=0;j<96;j++){
+        data['labels'].push(geneName[j]+ " ("+plateIdx[j] +")");
+    }
+   
     var config = {
         type: 'scatter',
         data: data,
         options: {
           responsive: true,
           maintainAspectRatio: false,
+          scales: {
+            x: {
+                display: true,
+                title: {
+                    font: {
+                        size: 16,
+                        weight: 'bold',
+                        lineHeight: 1.2,
+                      },
+                  display: true,
+                  text: 'Data Set(s) Relative Gene Expression (log2) - ' + dataHeader[0],
+
+                }
+            },
+            y: {
+                display: true,
+                title: {
+                    font: {
+                        size: 16,
+                        weight: 'bold',
+                        lineHeight: 1.2,
+                      },
+                    display: true,
+                    text: 'Control Set Relative Gene Expression (log2)',
+                },
+            },
+        },
           plugins: {
             legend: {
-              position: 'top',
+              position: 'chartArea',
             },
             title: {
+                font: {
+                    size: 18,
+                    weight: 'bold',
+                    lineHeight: 1.2,
+                  },
               display: true,
-              text: 'DeltaCt Scatter Chart'
+              text: '∆Ct Scatter Chart'
             }
-          }
+          },
+          tooltips: {
+            callbacks: {
+               label: function(tooltipItem, data) {
+                  var label = data.labels[tooltipItem.index];
+                  return label + ': (' + tooltipItem.xLabel + ', ' + tooltipItem.yLabel + ')';
+               }
+            }
+         }
         },
       };
     
     if(currentChart instanceof Chart){
+        currentChart.data=data;
+        currentChart.options.scales.x.title.text='Data Set(s) Relative Gene Expression (log2) - ' + dataHeader[0];
         currentChart.update();
     }else{
         currentChart = new Chart(ctx, config);
