@@ -867,6 +867,8 @@ function showDataMM(dataType){
                     }
                 }catch{
                     datarows[i].cells[j+2].innerText ='';
+                    datarows[i].cells[j+3].innerText ='';
+                    datarows[i].cells[j+4].innerText ='';
                     continue;
                 }
                 if(dataerr[k][i]=='') continue;
@@ -895,9 +897,15 @@ function showDataMM(dataType){
                     datarows[i].cells[j+2].innerText = data[k][i].toFixed(2);
                 }catch{
                     datarows[i].cells[j+2].innerText ='';
+                    datarows[i].cells[j+3].innerText ='';
+                    datarows[i].cells[j+4].innerText ='';
                     continue;
                 }
-                if(dataerr[k][i]=='') continue;
+                if(dataerr[k][i]==''){ 
+                    datarows[i].cells[j+3].innerText ='';
+                    datarows[i].cells[j+4].innerText ='';
+                    continue;
+                }
                 try{
                     //console.log(dataerr[k][i])
                     datarows[i].cells[j+3].innerText = (data[k][i]-dataerr[k][i]).toFixed(2);
