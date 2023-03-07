@@ -25,18 +25,19 @@
                 <section class="active">
                   
                     <div id="container-selectors">
-                        <p class="instruction-selector">Select species of your product or Select Customer Plate.</p>
+                        <p class="instruction-selector">Select species of your product or Select Custom Plate.</p>
                         <br />  
-                        <select id="sel-species" class="option-selector" onchange="productOptions();showLayout()">
+                        <select id="sel-species" class="option-selector" onchange="productOptions();showLayout();setSampleNum();setDataTableHead();setEmptyDataTable()">
                             <option>All Species</option>
                             <option>Human</option>
                             <option>Mouse</option>
                             <option>Other</option>
+                            <option>Custom Plate</option>
                         </select>
                         <br /><br />
                         <p class="instruction-selector"> Select the product you want to analysis. </p>
                         <br />
-                        <select id="sel-productname" class="option-selector" onchange="showLayout();setEmptyDataTable()">
+                        <select id="sel-productname" class="option-selector" onchange="showLayout();setSampleNum();setDataTableHead();setEmptyDataTable()">
                             <option value="GK101">GK101 - GeneQuery™ Human Synoviocyte Cell Biology qPCR Array Kit</option>
                         </select>
                         <br /><br />
@@ -93,14 +94,12 @@
                         <br /><br />
                         <table id="ctrl-output">
                             <tr id="row-ref-gene">
-                                <td colspan="2">Reference Genes:</td>
-                                <td></td>
+                                <td >Reference Genes:</td>                              
                             </tr>
                             <tr>
-                                <td colspan="2">Select data to display:</td>
-                                <td></td>
+                                <td>Select data:</td>
                                 <td>
-                                    <input type="radio" name="data-to-display" value="groupedDeltaCt"> ∆Ct</input>
+                                    <input type="radio" name="data-to-display" value="groupedDeltaCt" checked> ∆Ct</input>
                                 </td>
                                 <td>
                                     <input type="radio" name="data-to-display" value="groupedDeltaRQ"> ∆RQ</input>
@@ -110,6 +109,20 @@
                                 </td>
                                 <td>
                                     <input type="radio" name="data-to-display" value="deltaDeltaRQ"> ∆∆RQ</input>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Error Format:</td>
+                                <td>
+                                    <input type="radio" name="error-to-display" value="1" checked> SD/GSD</input>
+                                </td>
+                                <td>
+                                    <input type="radio" name="error-to-display" value="2"> Min/Max</input>
+                                </td>
+                                <td>                                   
+                                </td>
+                                <td colspan="2">
+                                    <button id="btn-copy">Copy All Data</button>
                                 </td>
                             </tr>
                         </table>
