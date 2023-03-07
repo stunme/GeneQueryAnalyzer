@@ -36,7 +36,11 @@ items.forEach((item,index)=>{
                         displayrefGene();
                         setDisplayTableHead()
                         setEmptyDisplayTable();
-                        showData(toDisplay);
+                        if(errToDisplay==1){
+                            showData(toDisplay);
+                        }else{
+                            showDataMM(toDisplay);
+                        }
                         drawScatter();
                         removeActive();
                         // 为当前标签添加选中样式
@@ -67,7 +71,11 @@ items.forEach((item,index)=>{
                         displayrefGene();
                         setDisplayTableHead()
                         setEmptyDisplayTable();
-                        showData(toDisplay);
+                        if(errToDisplay==1){
+                            showData(toDisplay);
+                        }else{
+                            showDataMM(toDisplay);
+                        }
                         drawScatter();
                         removeActive();
                         // 为当前标签添加选中样式
@@ -85,6 +93,32 @@ items.forEach((item,index)=>{
                         // 为当前内容区添加选中样式
                     sections[index].classList.add('active');
                 }
+            });
+            break;
+        case 0:
+            item.addEventListener('click',function(){
+                if(vProductName.val()=='Custom'){
+                    customLayoutGeneName();
+                }
+                needCalData = true;
+                removeActive();
+                // 为当前标签添加选中样式
+                item.classList.add('active');
+                // 为当前内容区添加选中样式
+                sections[index].classList.add('active');
+            });
+            break;
+        case 1:
+            item.addEventListener('click',function(){
+                if(vProductName.val()=='Custom'){
+                    customInputGeneName();
+                }
+                needCalData = true;
+                removeActive();
+                // 为当前标签添加选中样式
+                item.classList.add('active');
+                // 为当前内容区添加选中样式
+                sections[index].classList.add('active');
             });
             break;
         default:
@@ -107,6 +141,33 @@ showLayout();
 setSampleNum();
 setDataTableHead();
 setEmptyDataTable();
+
+function customLayoutGeneName(){
+    geneName=[];
+    for (var i = 0; i<96; i++){
+        geneName.push(document.getElementsByClassName('row-input')[i].cells[2].innerText);
+    }
+    var rowPlate = document.getElementsByClassName('row-plate');
+    for(var i=0;i<8;i++){
+        for(var j=1;j<13;j++){
+            rowPlate[i].cells[j].innerText=geneName[i*12+j-1];
+        }
+    } 
+}
+
+function customInputGeneName(){
+    geneName=[];
+    var rowPlate = document.getElementsByClassName('row-plate');
+    for(var i=0;i<8;i++){
+        for(var j=1;j<13;j++){
+            geneName.push(rowPlate[i].cells[j].innerText);
+        }
+    }    
+    for (var i = 0; i<96; i++){
+        document.getElementsByClassName('row-input')[i].cells[2].innerText = geneName[i] || '';
+    }
+}
+
 
 function productOptions(){
     vSpecies = $("#sel-species option:selected");
@@ -145,9 +206,16 @@ function showLayout(){
         dataHtml += '<tr class="row-plate">';
         dataHtml += '<td>' + (plateYIdx[i] || '&nbsp;') + '</td>';
         //alert(dataHtml);
-        for (var j = 0; j<12; j++){
-            dataHtml += '<td>' + (geneName[i*12+j] || '&nbsp;') + ' </td>';
+        if(vProductName.val()=='Custom'){
+            for (var j = 0; j<12; j++){
+                dataHtml += '<td class="cell-gene-name" contenteditable="true"></td>';
+            }
+        }else{
+            for (var j = 0; j<12; j++){
+                dataHtml += '<td>' + (geneName[i*12+j] || '&nbsp;') + ' </td>';
+            }
         }
+        
         dataHtml += '</tr>';
     }
     //alert(dataHtml);
@@ -173,7 +241,11 @@ function setDataTableHead(){
     dataHtml = '';
     dataHtml += '<tr>';
     dataHtml += '<td colspan="2"><div id="pasteAll"><span><p>Paste</p>All Data</span></div></th>';
-    dataHtml += '<td>&nbsp;</td>';
+    if(vProductName.val()=='Custom'){
+        dataHtml += '<td><div id="btn-paste-name"><span><p>Paste</p>Name</span></div></td>';
+    }else{
+        dataHtml += '<td>&nbsp;</td>';
+    }
     for (var i = 0; i<vPlateNum.text();i++){
         dataHtml += '<td><div class="btn-paste-plate"><span><p>Paste</p>Sample '+ (i+1) + '</span></div></td>';
         groupSet[0].add(i);
@@ -263,7 +335,28 @@ function setDataTableHead(){
             })
         })   
     });   
+    
+    if(vProductName.val()=='Custom'){
+        document.getElementById('btn-paste-name').addEventListener('click',function(){
+                navigator.clipboard.readText().then((clipboardData)=>{
+                    pasteGeneName(clipboardData);
+                })
+            });
+    }
 
+    function pasteGeneName(clipboardData){
+        var data = clipboardData.split('\n');
+        for (var i = 0; i<96; i++){
+            if (!data[i]) {
+                var tempData = []
+                //continue ;
+            }else{
+                var tempData = data[i].split('\t');
+            } 
+            document.getElementsByClassName('row-input')[i].cells[2].innerText = tempData[0] || '';
+        }
+    }
+    
     function PasteOnePlate(clipboardData,index){
         var data = clipboardData.split('\n');
         for (var i = 0; i<96; i++){
@@ -318,7 +411,11 @@ function setEmptyDataTable(){
             //alert(eval(vProductName.val())[4] + (plateIdx[i]))
             dataHtml += '<td>' + '<input type="checkbox"> ' + '</td>';
         }
-        dataHtml += '<td>' + (geneName[i] || '&nbsp;') + '</td>';
+        if(vProductName.val()=='Custom'){
+            dataHtml += '<td class="cell-gene-name" contenteditable="true">'+ (geneName[i] || '&nbsp;') + '</td>';
+        }else{
+            dataHtml += '<td>' + (geneName[i] || '&nbsp;') + '</td>';
+        }
         for (var j = 0;j<vPlateNum.text();j++){
             //alert(bugdetData[j]);
             dataHtml += '<td contenteditable="true">' + '&nbsp;' + '</td>';
@@ -403,6 +500,7 @@ var deltaDeltaRQ=[];
 var deltaDeltaRQErr=[];
 var dataHeader=[];
 var toDisplay='groupedDeltaCt';
+var errToDisplay=1;
 var dataMap=new Map()
 dataMap['groupedDeltaCt']="∆Ct"
 dataMap['groupedDeltaRQ']="∆RQ"
@@ -413,9 +511,29 @@ var inputs=document.getElementsByName("data-to-display");
 for(var i=0;i<inputs.length;i++){
     inputs[i].addEventListener("change",function(){
         toDisplay = this.value;
-        showData(toDisplay);
+        if(errToDisplay==1){
+            showData(toDisplay);
+        }else{
+            showDataMM(toDisplay);
+        }
     });
 }
+
+var inputErr=document.getElementsByName("error-to-display");
+for(var i=0;i<inputErr.length;i++){
+    inputErr[i].addEventListener("change",function(){
+        errToDisplay = this.value;
+        setDisplayTableHead()
+        setEmptyDisplayTable();
+        if(errToDisplay==1){
+            showData(toDisplay);
+        }else{
+            showDataMM(toDisplay);
+        }
+
+    });
+}
+
 
 function fixTwo(num){
     return parseFloat(num.toFixed(2));
@@ -427,16 +545,19 @@ function isNotValidData(){
     var isControl = false;
     refGene = new Set();
     sumControl=[];
+    if(vProductName.val() == 'Custom'){
+        geneName = [];
+    }
     for(var k = 0;k<vPlateNum.text();k++){
         sumControl.push(0);
     }   
     var rows = document.getElementsByClassName("row-input");
     for(var j = 0; j<rows.length; j++){
         if(rows[j].cells[1].firstElementChild.checked){
-            if(rows[j].cells[2].innerText==""){
+            /*if(rows[j].cells[2].innerText==""){
                 alert("Invalid reference gene symble in " + plateIdx[j]);
                 return true;
-            }
+            }*/
             isControl = true;
         }else{
             isControl = false;
@@ -451,13 +572,16 @@ function isNotValidData(){
                 isControl = false;
                 tempData.push(0);
             }else{
-                alert("Invalid data in "+ plateIdx[j] + " in Sample " + i);
+                //alert("Invalid data in "+ plateIdx[j] + " in Sample " + i);
                 isControl = false;
                 tempData.push(0);
                 //return true;
             }            
         }
         allData.push(tempData);
+        if(vProductName.val()=='Custom'){
+            geneName.push(rows[j].cells[2].innerText)
+        }
         if(isControl){
             refGene.add(j);
             for(var k = 0;k<vPlateNum.text();k++){
@@ -540,19 +664,26 @@ function calculateData(){
                     sum += tmp;
                     sumArray.push(tmp);
                 }
+                
                 vCt = fixTwo(sum/sumArray.length);
                 if(sumArray.length ==0){
                     groupedDeltaCt[idx].push('');
                     groupedDeltaCtErr[idx].push('');
                     groupedDeltaRQ[idx].push('');
                     groupedDeltaRQErr[idx].push('');
+                }else if(sumArray.length==1){
+                    groupedDeltaCt[idx].push(vCt);
+                    groupedDeltaCtErr[idx].push('');
+                    vCt = Math.pow(2,-vCt)
+                    groupedDeltaRQ[idx].push(vCt);                   
+                    groupedDeltaRQErr[idx].push('');
                 }else{
                     groupedDeltaCt[idx].push(vCt);
                     groupedDeltaCtErr[idx].push(fixTwo(Math.sqrt(sumArray.map(x => Math.pow(x - vCt, 2)).reduce((a, b) => a + b) / (sumArray.length-1))));
                     vCt = Math.pow(2,-vCt)
                     groupedDeltaRQ[idx].push(vCt);
-                    groupedDeltaRQErr[idx].push(Math.pow(Math.E,Math.sqrt(sumArray.map(x => Math.pow(Math.log(Math.pow(2,-x)/vCt), 2)).reduce((a, b) => a + b) / (sumArray.length-1))));
-                 }
+                    groupedDeltaRQErr[idx].push(Math.pow(Math.E,Math.sqrt(sumArray.map(x => Math.pow(Math.log(Math.pow(2,-x)/vCt), 2)).reduce((a, b) => a + b) / (sumArray.length-1))));   
+                }
             }
         }
     }   
@@ -629,7 +760,7 @@ function setDisplayTableHead(){
     dataHtml += '<tr>';
     dataHtml += '<td>ID</td><td>Gene</td>';
     for(var k of dataHeader){
-        dataHtml += '<td colspan="2">' + k + '</td>'
+        dataHtml += '<td colspan="3">' + k + '</td>'
     }
     dataHtml += '</tr>';
     $('table#data-output>tbody').append(dataHtml);
@@ -638,11 +769,18 @@ function setDisplayTableHead(){
 function setEmptyDisplayTable(){
     var dataHtml = '';
     dataHtml += "<tr id='row-output-head'><td></td><td></td>"
-    for (var j = 0;j<dataHeader.length;j+=1){
+    for (var j = 0;j<dataHeader.length;j++){
         //alert(bugdetData[j]);
         dataHtml += '<td>' + '' + '</td>';
-        dataHtml += '<td>' + 'SD' + '</td>';
+        //console.log(errToDisplay)
+        if(errToDisplay==1){
+            dataHtml += '<td colspan="2">SD</td>';
+        }else{
+            dataHtml += '<td>Min</td>';
+            dataHtml += '<td>Max</td>';
+        }
     }
+    dataHtml += '</tr>'
     for (var i = 0; i < 96; i++) {
         dataHtml += '<tr class="row-output">';
         dataHtml += '<td>' + (plateIdx[i] || '&nbsp;') + '</td>';
@@ -650,14 +788,19 @@ function setEmptyDisplayTable(){
         for (var j = 0;j<dataHeader.length;j++){
             //alert(bugdetData[j]);
             dataHtml += '<td>' + '&nbsp;' + '</td>';
-            dataHtml += '<td>' + '&nbsp;' + '</td>';
+            if(errToDisplay==1){
+                dataHtml += '<td colspan="2">' + '&nbsp;' + '</td>';
+            }else{
+                dataHtml += '<td>' + '&nbsp;' + '</td>';
+                dataHtml += '<td>' + '&nbsp;' + '</td>';
+            }
+
         }
         dataHtml += '</tr>';     
     }
     $('table#data-output>tbody').append(dataHtml);
 
 }
-
 
 function showData(dataType){
     var data = eval(dataType);
@@ -698,6 +841,77 @@ function showData(dataType){
             }catch{
                 datarows[i].cells[j+3].innerText ='';
             }
+        }
+    }
+}
+
+function showDataMM(dataType){
+    var data = eval(dataType);
+    var dataerr = eval(dataType+'Err');
+    var idx = dataHeader.length*3;
+    var datahead = document.getElementById('row-output-head');
+    for(var j= 0;j<idx;j+=3){
+        datahead.cells[j+2].innerText = dataMap[dataType];
+        datahead.cells[j+3].innerText = 'Min';
+        datahead.cells[j+4].innerText = 'Max';
+    }
+    var datarows = document.getElementsByClassName('row-output');
+    for (var i = 0; i<96; i++){
+        for(var j = 0, k=0; j<idx; j+=3,k++){
+            if(dataType.includes('RQ')){
+                try{
+                    if(data[k][i]>=1){
+                        datarows[i].cells[j+2].innerText = data[k][i].toFixed(1);
+                    }else{
+                        datarows[i].cells[j+2].innerText = data[k][i].toPrecision(2);
+                    }
+                }catch{
+                    datarows[i].cells[j+2].innerText ='';
+                    continue;
+                }
+                if(dataerr[k][i]=='') continue;
+                try{
+                    if(data[k][i]>=1){
+                        datarows[i].cells[j+3].innerText = (data[k][i]/dataerr[k][i]).toFixed(2);
+                    }else{
+                        datarows[i].cells[j+3].innerText = (data[k][i]/dataerr[k][i]).toPrecision(2);
+                    }
+                }catch{
+                    datarows[i].cells[j+3].innerText ='';
+                }
+                try{
+                    if(data[k][i]>=1){
+                        datarows[i].cells[j+4].innerText = (data[k][i]*dataerr[k][i]).toFixed(2);
+                    }else{
+                        datarows[i].cells[j+4].innerText = (data[k][i]*dataerr[k][i]).toPrecision(2);
+                    }
+                }catch{
+                    datarows[i].cells[j+4].innerText ='';
+                }
+            }else{
+                //console.table(data[k])
+                try{
+                    //console.log(data[k][i]);
+                    datarows[i].cells[j+2].innerText = data[k][i].toFixed(2);
+                }catch{
+                    datarows[i].cells[j+2].innerText ='';
+                    continue;
+                }
+                if(dataerr[k][i]=='') continue;
+                try{
+                    //console.log(dataerr[k][i])
+                    datarows[i].cells[j+3].innerText = (data[k][i]-dataerr[k][i]).toFixed(2);
+                }catch{
+                    datarows[i].cells[j+3].innerText ='';
+                }
+                try{
+                    datarows[i].cells[j+4].innerText = (data[k][i]+dataerr[k][i]).toFixed(2);
+                }catch{
+                    datarows[i].cells[j+4].innerText ='';
+                }
+            }
+            
+
         }
     }
 }
@@ -803,3 +1017,16 @@ function drawScatter(){
     }
 }
 //<p>∆∆RQ = = 2^-∆∆Ct = 2^-(∆Ctsample-∆Ctctrl)</p>
+
+
+var copyBtn = document.querySelector('#btn-copy');
+copyBtn.addEventListener('click', function () {
+    navigator.clipboard.writeText($("#data-output")[0].outerText).then(
+        () => {
+            alert("Copied the data to Clipboard")
+        },
+        () => {
+            alert("Sorry! Something wrong with copying the data")
+        }
+      );
+}, false);
