@@ -30,4 +30,7 @@ var GK201 = ["Mouse","GeneQuery™ Human Synoviocyte Cell Biology qPCR Array Kit
 
 var GK301 = ["Other","GeneQuery™ Human Synoviocyte Cell Biology qPCR Array Kit","Description","11,23,35","A12,B12,C12",
             "rACTB,GAPDH,LDHA,ACTB,ACTB,GAPDH,LDHA,ACTB,ACTB,GAPDH,LDHA,ACTB,ACTB,GAPDH,LDHA,ACTB,ACTB,GAPDH,LDHA,ACTB,ACTB,GAPDH,LDHA,ACTB,ACTB,GAPDH,LDHA,ACTB,ACTB,GAPDH,LDHA,ACTB,ACTB,GAPDH,LDHA,ACTB,ACTB,GAPDH,LDHA,ACTB,ACTB,GAPDH,LDHA,ACTB,ACTB,GAPDH,LDHA,ACTB,ACTB,GAPDH,LDHA,ACTB,ACTB,GAPDH,LDHA,ACTB,ACTB,GAPDH,LDHA,ACTB,ACTB,GAPDH,LDHA,ACTB,ACTB,GAPDH,LDHA,ACTB,ACTB,GAPDH,LDHA,ACTB,ACTB,GAPDH,LDHA,ACTB,ACTB,GAPDH,LDHA,ACTB,ACTB,GAPDH,LDHA,ACTB,ACTB,GAPDH,LDHA,ACTB,ACTB,GAPDH,LDHA,ACTB,ACTB,GAPDH,LDHA,ACTB"]
-      
+    
+var Custom = ["Custom Plate","Modify gene symbles below or next page ","Description","0","A1",
+            ",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"]
+    
