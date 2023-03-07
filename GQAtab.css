@@ -166,6 +166,10 @@ select.option-selector{
     border-top-left-radius: 3px; 
 }
 
+#layout-product td.cell-gene-name{
+    cursor: cell;
+}
+
 #container-input, #container-output{
     width: 95%;
 }
@@ -181,12 +185,16 @@ select.option-selector{
 }
 
 #ctrl-output td{
-    min-width: 100px;
+    min-width: 115px;
     padding-bottom: 20px;
     font-size: 16px;
     cursor:default;
     /* font-weight: bold;*/
     color: #0c524f;    
+}
+
+#ctrl-output td:first-child{
+    min-width: 180px;
 }
 
 #data-input td, #data-output td{
@@ -224,11 +232,6 @@ select.option-selector{
     border: 1px solid #e5e5e5;
 }
 
-#data-input tr.row-input td:nth-child(n+4){
-    cursor: cell;
-    background: white;
-}
-
 #data-input tr.row-input td:nth-child(n+3){
     font-size: 14px;
 }
@@ -249,6 +252,13 @@ select.option-selector{
     padding-bottom: 10px;
 }
 
+#data-input tr.row-input td:nth-child(n+4), #data-input tr.row-input td.cell-gene-name{
+    cursor: cell;
+    background: white;
+}
+
+
+
 #pasteAll{
     cursor: pointer;  
     width: 80%;
@@ -264,23 +274,8 @@ select.option-selector{
     font-weight: 700;
     padding-bottom: 10px;
 }
-#pasteAll span{
-    align-self: flex-end;
-}
 
-#pasteAll::after{
-    content: "";
-    position: absolute;
-    right: 0px;
-    top:0px;
-    background: linear-gradient(-135deg, transparent 50%, #eccdcd 0);
-    width: 25px;
-    height: 25px;
-    border-bottom-left-radius: 4px;
-    box-shadow: -0.2em 0.2em 0.2em #7a3a44;
-}
-
-div.btn-paste-plate{
+div.btn-paste-plate, #btn-paste-name{
     cursor: pointer;  
     width: 95%;
     height: 65px;
@@ -295,10 +290,10 @@ div.btn-paste-plate{
     padding-bottom: 10px;
     font-weight: 700;
 }
-div.btn-paste-plate span{
+#pasteAll span, div.btn-paste-plate span, #btn-paste-name span{
     align-self: flex-end;
 }
-div.btn-paste-plate::after{
+#pasteAll::after,div.btn-paste-plate::after, #btn-paste-name::after{
     content: "";
     position: absolute;
     right: 0px;
@@ -364,11 +359,18 @@ button.dropdown:hover .dropbtn {
 }
 
 #container-plot{
-    width: 750px;
-    height: 540px;
+    width: 90%;
+    height: 90%;
 }
 
-
-
+#btn-copy{
+    /*color: white;
+    padding: 5px;*/
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+}
 
 
