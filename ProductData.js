@@ -10,7 +10,7 @@ var plateIdx = ["A1","A2","A3","A4","A5","A6","A7","A8","A9","A10","A11","A12",
 var plateXIdx = ["1","2","3","4","5","6","7","8","9","10","11","12"];
 var plateYIdx = ["A","B","C","D","E","F","G","H"];
 
-var productList = ["GK101","GK102","GK201","GK301","GK096"]
+var productList = ["GK101","GK102","GK201","GK301","GK096","Custom"]
 
 
 var GK096 = ["Human","GeneQuery™ Human Schwann Cell Biology qPCR Array Kit","Description","11,23,35,47,59","A12,B12,C12,D12,E12",
@@ -30,7 +30,6 @@ var GK201 = ["Mouse","GeneQuery™ Human Synoviocyte Cell Biology qPCR Array Kit
 
 var GK301 = ["Other","GeneQuery™ Human Synoviocyte Cell Biology qPCR Array Kit","Description","11,23,35","A12,B12,C12",
             "rACTB,GAPDH,LDHA,ACTB,ACTB,GAPDH,LDHA,ACTB,ACTB,GAPDH,LDHA,ACTB,ACTB,GAPDH,LDHA,ACTB,ACTB,GAPDH,LDHA,ACTB,ACTB,GAPDH,LDHA,ACTB,ACTB,GAPDH,LDHA,ACTB,ACTB,GAPDH,LDHA,ACTB,ACTB,GAPDH,LDHA,ACTB,ACTB,GAPDH,LDHA,ACTB,ACTB,GAPDH,LDHA,ACTB,ACTB,GAPDH,LDHA,ACTB,ACTB,GAPDH,LDHA,ACTB,ACTB,GAPDH,LDHA,ACTB,ACTB,GAPDH,LDHA,ACTB,ACTB,GAPDH,LDHA,ACTB,ACTB,GAPDH,LDHA,ACTB,ACTB,GAPDH,LDHA,ACTB,ACTB,GAPDH,LDHA,ACTB,ACTB,GAPDH,LDHA,ACTB,ACTB,GAPDH,LDHA,ACTB,ACTB,GAPDH,LDHA,ACTB,ACTB,GAPDH,LDHA,ACTB,ACTB,GAPDH,LDHA,ACTB"]
-    
-var Custom = ["Custom Plate","Modify gene symbles below or next page ","Description","0","A1",
+
+var Custom = ["Custom Plate","Modify gene symbles below or in next page ","Description","0","A1",
             ",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"]
-    
