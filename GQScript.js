@@ -948,6 +948,55 @@ function drawScatter(){
   /*  for (var j=0;j<96;j++){
         data['labels'].push(geneName[j]+ " ("+plateIdx[j] +")");
     }*/
+
+    var regulateCutoff = {
+        id: 'regulateCutoff',
+        beforeDraw(chart, args, options){
+           // console.table(ctx)
+            const {ctx, chartArea:{top, right, bottom, left, width, height}, scales:{x,y}} = chart;
+            ctx.save();
+            //upReg and downReg line
+            const upReg = new Path2D();
+            upReg.strokeStyle = 'green';
+            upReg.moveTo(left,y.getPixelForValue(y.min+2))
+            upReg.lineTo(x.getPixelForValue(x.max-2),top)
+            upReg.lineTo(left,top);
+            upReg.closePath();
+
+            ctx.fillStyle = 'rgba(0,200,0,0.05)';
+            ctx.fill(upReg)
+
+            const downReg = new Path2D();
+            ctx.strokeStyle = 'red';
+            downReg.moveTo(x.getPixelForValue(x.min+2),bottom)
+            downReg.lineTo(right,y.getPixelForValue(y.max-2))
+            downReg.lineTo(right,bottom);
+            downReg.closePath()
+
+            ctx.fillStyle = 'rgba(200,0,0,0.05)';
+            ctx.fill(downReg)
+            
+            const midline = new Path2D()
+            ctx.strokeStyle = 'black';
+            midline.moveTo(left,bottom)
+            midline.lineTo(right,top)
+            ctx.stroke(midline)
+
+
+            ctx.textAlign = "left";
+            ctx.fillStyle = 'green';
+            ctx.font = '18px Arial'
+            ctx.fillText("Up Regulated Genes", left+10, top+28);
+     
+
+            ctx.textAlign = "right";
+            ctx.fillStyle = 'red';
+            ctx.font = '18px Arial'
+            ctx.fillText("Down Regulated Genes", right-10, bottom-10);
+            ctx.restore();
+
+        }
+    }
    
     var config = {
         type: 'scatter',
@@ -1014,6 +1063,7 @@ function drawScatter(){
                 }
             },
         },
+        plugins: [regulateCutoff]
       };
     
     if(currentChart instanceof Chart){
