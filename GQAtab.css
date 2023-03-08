@@ -101,6 +101,7 @@ nav .gq-item .fa{
     position: relative;
     font-weight: bold;
     font-size: 18px;
+    
 }
 /* 标签选中态样式 */
 nav .gq-item.active::before{
@@ -113,6 +114,7 @@ nav .gq-item.active .fa{
     position: relative;
     font-size: 18px;
     font-weight: bold;
+    
 }
 /* 内容区 */
 .content-item{
@@ -421,4 +423,23 @@ button.dropdown:hover .dropbtn {
     font-weight: 600;
 }
 
+#footer-all-container{
+    width: 960px;
+    margin-top: 10px;
+}
 
+.footer .links li { float: left; }
+.links a { padding: 0 5px 0 6px; background: url(https://www.sciencellonline.com/skin/frontend/argento/default/images/links_div.gif) no-repeat 0 50% !important; white-space: nowrap; }
+.links li.first a { background: none !important; padding-left: 0; }
+.footer {  padding:10px; }
+.footer p { text-align:right; }
+.footer address { text-align:right; }
+.footer ul li { display:inline; }
+.footer-container{ text-align:center; }
+
+.footer { padding: 13px 0 0; font-size: .9em; }
+.footer a { color: #4c4c4c; }
+.footer .links a { text-decoration: none; }
+.footer .links a:hover { text-decoration: underline; }
+.footer address { float: left; }
+.footer .links { float: right; }
