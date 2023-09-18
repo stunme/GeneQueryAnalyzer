@@ -1023,7 +1023,7 @@ function drawScatter(){
                         lineHeight: 1.2,
                       },
                   display: true,
-                  text: 'Data Set(s) Relative Gene Expression (log2) - ' + dataHeader[0],
+                  text: 'Control Set Relative Gene Expression (log2) - ' + dataHeader[0],
 
                 }
             },
@@ -1038,7 +1038,7 @@ function drawScatter(){
                         lineHeight: 1.2,
                       },
                     display: true,
-                    text: 'Control Set Relative Gene Expression (log2)',
+                    text: 'Data Set(s) Relative Gene Expression (log2)',
                 },
             },
         },
