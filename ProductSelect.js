@@ -1,7 +1,7 @@
 var vSpecies,vProductName,vPlateNum,geneName,controlGene;
 productOptions();
 showLayout();
-setSampleNum();
+setPlateNum();
 setDataTableHead();
 setEmptyDataTable();
 
@@ -53,7 +53,7 @@ function showLayout(){
 
 }
 
-function setSampleNum(){
+function setPlateNum(){
     vPlateNum = $("#PlateNum option:selected");   
 }
 

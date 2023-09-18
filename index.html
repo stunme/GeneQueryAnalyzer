@@ -57,11 +57,8 @@
             <div class="header-container">
                 <div class="header">
                     <div class="logo-wrapper">
-                        <h1 class="logo"><a href="https://www.sciencellonline.com/" title="Sciencell Research Laboratories, inc" class="logo"><img src="https://www.sciencellonline.com/skin/frontend/base/default/images/logo-png.png" alt="Sciencell Research Laboratories, inc" /></a></h1>
-                    </div>
-                    <div>
-                        <p><img alt="Helping the Scientists of today Discover the Science of tomorrow" height="57" src="https://www.sciencellonline.com/media/wysiwyg/New_Images_3-19/Small_Imgs/Slogan-new.png" width="230" /></p>         
-                    </div>
+                        <h1 class="logo"><a href="https://www.sciencellonline.com/" title="Sciencell Research Laboratories, inc" class="logo"><img src="https://sciencellonline.com/media/logo/stores/1/current-logo.png" alt="Sciencell Research Laboratories, inc" /></a></h1>
+                    </div>                
                 </div>
             </div>  
         </div>
@@ -81,7 +78,7 @@
                     <div id="container-selectors">
                         <p class="instruction-selector">Select species of your product or Select Custom Plate.</p>
                         <br />  
-                        <select id="sel-species" class="option-selector" onchange="productOptions();showLayout();setSampleNum();setDataTableHead();setEmptyDataTable()">
+                        <select id="sel-species" class="option-selector" onchange="productOptions();showLayout();setPlateNum();setDataTableHead();setEmptyDataTable()">
                             <option>All Species</option>
                             <option>Human</option>
                             <option>Mouse</option>
@@ -91,13 +88,13 @@
                         <br /><br />
                         <p class="instruction-selector"> Select the product you want to analysis. </p>
                         <br />
-                        <select id="sel-productname" class="option-selector" onchange="showLayout();setSampleNum();setDataTableHead();setEmptyDataTable()">
+                        <select id="sel-productname" class="option-selector" onchange="showLayout();setPlateNum();setDataTableHead();setEmptyDataTable()">
                             <option value="GK101">GK101 - GeneQuery™ Human Synoviocyte Cell Biology qPCR Array Kit</option>
                         </select>
                         <br /><br />
-                        <p class="instruction-selector"> Numbers of your total samples. </p>
+                        <p class="instruction-selector"> Numbers of your total plates. </p>
                         <br />
-                        <select id="sel-platenum" class="option-selector" onchange="setSampleNum();setDataTableHead();setEmptyDataTable()">
+                        <select id="sel-platenum" class="option-selector" onchange="setPlateNum();setDataTableHead();setEmptyDataTable()">
                             <option>1</option>
                             <option>2</option>
                             <option>3</option>
@@ -126,7 +123,7 @@
                                 </th>
                                 <th>Control</th>
                                 <th>Gene</th>                                
-                                <th>Sample 1</th>
+                                <th>Plate 1</th>
                             </tr>
                         </table>
                         <br /><br /> 

@@ -138,7 +138,7 @@ var vSpecies,vProductName,vPlateNum,geneName, refGene;
 var groupSet = new Array();
 productOptions();
 showLayout();
-setSampleNum();
+setPlateNum();
 setDataTableHead();
 setEmptyDataTable();
 
@@ -224,7 +224,7 @@ function showLayout(){
 
 }
 
-function setSampleNum(){
+function setPlateNum(){
     vPlateNum = $("#sel-platenum option:selected");   
 }
 
@@ -247,7 +247,7 @@ function setDataTableHead(){
         dataHtml += '<td>&nbsp;</td>';
     }
     for (var i = 0; i<vPlateNum.text();i++){
-        dataHtml += '<td><div class="btn-paste-plate"><span><p>Paste</p>Sample '+ (i+1) + '</span></div></td>';
+        dataHtml += '<td><div class="btn-paste-plate"><span><p>Paste</p>Plate '+ (i+1) + '</span></div></td>';
         groupSet[0].add(i);
     }
     dataHtml += '</tr>';
@@ -258,10 +258,10 @@ function setDataTableHead(){
     dataHtml += '<td>ID</td><td>Reference</td><td>Gene</td>';
     for (var i = 1; i<=vPlateNum.text();i++){
         if(vPlateNum.text() == 1){
-            dataHtml += '<td>Sample1';
+            dataHtml += '<td>Plate1';
         }else{
             dataHtml += '<td><div class="dropdown">';
-            dataHtml += '<button class="dropbtn">Sample'+i+'</button>';
+            dataHtml += '<button class="dropbtn">Plate'+i+'</button>';
             dataHtml += '<div class="dropdown-content">';
             dataHtml += '<a>Ungroup</a>'
             dataHtml += '<a>Ctrl Set</a>';
@@ -295,7 +295,7 @@ function setDataTableHead(){
 
                     switch(idx){
                         case 0:
-                            current.innerText = 'Sample' + (index+1);
+                            current.innerText = 'Plate' + (index+1);
                             groupSet[0].add(index);
                             break;
                         case 1:
@@ -572,7 +572,7 @@ function isNotValidData(){
                 isControl = false;
                 tempData.push(0);
             }else{
-                //alert("Invalid data in "+ plateIdx[j] + " in Sample " + i);
+                //alert("Invalid data in "+ plateIdx[j] + " in Plate " + i);
                 isControl = false;
                 tempData.push(0);
                 //return true;
@@ -689,7 +689,7 @@ function calculateData(){
     }   
     
     for(var k of groupSet[0]){
-        dataHeader.push("Sample" + (k+1));
+        dataHeader.push("Plate" + (k+1));
         var idx = dataHeader.length-1;
         groupedDeltaCt.push([]);
         groupedDeltaCtErr.push([]);
@@ -935,16 +935,23 @@ function drawScatter(){
         datasets: [],
     };
 
+    var minAxis = 0;
+    var maxAxis = 0;
+
     for(var i=0;i<groupedDeltaCt.length;i++){
         data['datasets'].push({'label':dataHeader[i],'data':[],'backgroundColor':'#'+Math.floor(Math.random()*16777215).toString(16)})
         for(var j =0;j<96;j++){
             if(groupedDeltaCt[0][j]==''||groupedDeltaCt[i][j]==''){
                 data['datasets'][i]['data'].push({'x':0,'y':0});
             }else{
-            data['datasets'][i]['data'].push({'x':-groupedDeltaCt[0][j],'y':-groupedDeltaCt[i][j]});
+                data['datasets'][i]['data'].push({'x':-groupedDeltaCt[0][j],'y':-groupedDeltaCt[i][j]});
             }
+            minAxis = Math.min(minAxis,-groupedDeltaCt[0][j],-groupedDeltaCt[i][j]);
+            maxAxis = Math.max(maxAxis,-groupedDeltaCt[0][j],-groupedDeltaCt[i][j]);
         }
     }
+    minAxis = Math.floor(minAxis)-1
+    maxAxis = Math.ceil(maxAxis)+1
   /*  for (var j=0;j<96;j++){
         data['labels'].push(geneName[j]+ " ("+plateIdx[j] +")");
     }*/
@@ -1007,6 +1014,8 @@ function drawScatter(){
           scales: {
             x: {
                 display: true,
+                min: minAxis,
+                max: maxAxis,
                 title: {
                     font: {
                         size: 16,
@@ -1020,6 +1029,8 @@ function drawScatter(){
             },
             y: {
                 display: true,
+                min: minAxis,
+                max: maxAxis,
                 title: {
                     font: {
                         size: 16,
@@ -1074,7 +1085,7 @@ function drawScatter(){
         currentChart = new Chart(ctx, config);
     }
 }
-//<p>∆∆RQ = = 2^-∆∆Ct = 2^-(∆Ctsample-∆Ctctrl)</p>
+//<p>∆∆RQ = = 2^-∆∆Ct = 2^-(∆Ctplate-∆Ctctrl)</p>
 
 
 var copyBtn = document.querySelector('#btn-copy');
