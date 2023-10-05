@@ -1,0 +1,448 @@
+*{
+    margin: 0;
+    padding: 0;
+    font: 12px;
+    font-family: arial, helvetica, sans-serif;
+}
+body{
+    height: 100vh;
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+    background: #fff url(https://www.sciencellonline.com/skin/frontend/argento/pure/images/bg_stripes.gif) repeat-x 0 0;
+    padding: 7px 0 0;
+}
+
+#header-all-container{
+    width: 100%;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+.header{
+    width: 960px;
+    display: flex;
+}
+
+.top-notification-bar {
+width: 100%;
+background-color: red;
+height: 40px;
+font-size: 16px;
+margin-bottom: 10px;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.top-notification-bar a {
+font-weight: bold;
+color: white;
+text-decoration: none;
+}
+.top-notification-bar a:hover {
+text-decoration: underline;
+}
+
+
+#container-items{
+    background: rgb(250, 250, 250);
+    border-top: 1px solid black;
+    /*border-radius: 3px;
+    border: 1px solid #ad6767;*/
+    box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.2);
+}
+
+#title-content{
+    font-size: 30px;
+    font-weight: bold;
+
+    width: 960px;
+    text-align: right;
+    text-shadow: 3px 3px 1px rgb(214, 214, 214);
+
+}
+
+/* 标签栏 */
+nav{
+    width: 960px;
+    display: flex;
+    background: #fff;
+}
+nav .gq-item{
+    width: 160px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    /* 相对定位 */
+    position: relative;
+    /* 溢出隐藏 */
+    overflow: hidden;
+}
+
+/* 图标背景圆 */
+nav .gq-item::before{
+    content: "";
+    width: 160px;
+    height: 0px;
+    background-color: #e6e6e6;
+    /*border-radius: 50%;
+     绝对定位 */
+    position: absolute;
+    /* 过渡效果 */
+    transition: 0.3s;
+    color: #fff;
+}
+nav .gq-item .fa{
+    color: #5f5e5e;
+    position: relative;
+    font-weight: bold;
+    font-size: 18px;
+    
+}
+/* 标签选中态样式 */
+nav .gq-item.active::before{
+    width: 150%;
+    height: 150%;
+    color: #ad6767;
+}
+nav .gq-item.active .fa{
+    color: black;
+    position: relative;
+    font-size: 18px;
+    font-weight: bold;
+    
+}
+/* 内容区 */
+.content-item{
+    width: 100%;
+    height: 600px;
+    border-top: 2px solid black;
+    position: relative;
+    
+}
+section{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: baseline;
+    position:absolute;
+    /* 默认隐藏 */
+    opacity: 0;
+    /* 不透明度改变时的过渡效果 */
+    transition: opacity 0.4s;
+    z-index: 1;
+    flex-wrap: wrap;
+    overflow-y:auto;
+    
+}
+section .instruction-option{
+    width: 100%;
+    font-size: 16px;
+   /* font-weight: bold;*/
+    color: #0c524f;
+}
+/* 内容区选中态样式 */
+section.active{
+    opacity: 1;
+    z-index: 9;
+    
+}
+#container-selectors{
+    width: 700px;
+    height: auto;
+    padding-top: 30px;
+}
+select.option-selector{
+    width:600px;
+    margin-left:50px;
+    font-size:15px;
+}
+
+#layout-product{
+    border-collapse:collapse;
+}
+
+#layout-product tr {
+    height: 25px;
+    background-color: #aecae5;
+    text-align: center;
+    font-size: 13px;
+}
+
+#layout-product tr:nth-child(odd){
+    background: #eccdcd ;
+}
+  
+#layout-product tr:nth-child(even){
+    background:rgb(247, 244, 244);
+}
+
+#layout-product th{
+    background:rgb(250, 250, 250);
+}
+#layout-product td:first-child{
+    background: rgb(250, 250, 250);
+    text-align: left;
+    width: 25px;
+}
+
+#layout-product th:nth-child(n+2), #layout-product tr:last-child td:nth-child(n+2){
+    border-bottom: 2px solid black;
+}
+
+#layout-product td:first-child, #layout-product td:last-child{
+    border-right: 2px solid black;
+}
+
+#layout-product td{
+    width: 52px;
+}
+
+#layout-product .row-plate-head{
+    font-weight: bold;
+    font-size: 16px;
+} 
+
+#layout-product th:first-child , td:first-child{
+    font-weight: bold;
+    font-size: 16px;      
+    border-bottom-left-radius: 3px;
+    border-top-left-radius: 3px; 
+}
+
+#layout-product td.cell-gene-name{
+    cursor: cell;
+}
+
+#container-input, #container-output{
+    width: 95%;
+}
+
+
+
+#data-input, #data-output{
+    table-layout: fixed;
+    text-align: center;
+    border-collapse: collapse;
+    border: 0px;
+    border-bottom: 1px solid black;
+}
+
+#ctrl-output td{
+    min-width: 115px;
+    padding-bottom: 20px;
+    font-size: 16px;
+    cursor:default;
+    /* font-weight: bold;*/
+    color: #0c524f;    
+}
+
+#ctrl-output td:first-child{
+    min-width: 180px;
+}
+
+#data-input td, #data-output td{
+    min-width: 80px;
+    border: 0px;
+    min-height: 40px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+#data-input tr:nth-child(2) td, #data-output tr:first-child td{
+    font-weight: bold;
+    position:sticky;
+    top:0; /* 第一列最上 */
+}
+
+#data-output td:nth-child(2){
+    position:sticky;
+    left:0; /* 首行在左 */
+    z-index:1;
+}
+#data-output tr:first-child td:nth-child(2){
+    z-index:2;
+}
+
+#data-input tr:nth-child(n+2) td, #data-output tr:first-child td{
+    background: #f1f1f1;
+    border:1px solid #e5e5e5;
+
+}
+
+#data-output tr.row-output td{
+    background: white;
+    font-size: 14px;
+    border: 1px solid #e5e5e5;
+}
+
+#data-input tr.row-input td:nth-child(n+3){
+    font-size: 14px;
+}
+
+#data-input tr:nth-child(2) td{
+    /*border-top: 1px solid black;*/
+    padding-top: 10px;
+    font-weight: 600;
+}
+
+#data-input tr:nth-child(n+2){
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+}
+
+
+#data-input tr:first-child td{
+    padding-bottom: 10px;
+}
+
+#data-input tr.row-input td:nth-child(n+4), #data-input tr.row-input td.cell-gene-name{
+    cursor: cell;
+    background: white;
+}
+
+
+
+#pasteAll{
+    cursor: pointer;  
+    width: 80%;
+    height: 65px;
+    background: linear-gradient(225deg, transparent 18px, #eccdcd 0);
+    position: relative;
+    border-radius: 0.5em;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    border: 0px;
+    font: 16px;
+    font-weight: 700;
+    padding-bottom: 10px;
+}
+
+div.btn-paste-plate, #btn-paste-name{
+    cursor: pointer;  
+    width: 95%;
+    height: 65px;
+    background: linear-gradient(225deg, transparent 18px, #eccdcd 0);
+    position: relative;
+    border-radius: 0.5em;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    border: 0px;
+    font-size: 14px;
+    padding-bottom: 10px;
+    font-weight: 700;
+}
+#pasteAll span, div.btn-paste-plate span, #btn-paste-name span{
+    align-self: flex-end;
+}
+#pasteAll::after,div.btn-paste-plate::after, #btn-paste-name::after{
+    content: "";
+    position: absolute;
+    right: 0px;
+    top:0px;
+    background: linear-gradient(-135deg, transparent 50%, #eccdcd 0);
+    width: 25px;
+    height: 25px;
+    border-bottom-left-radius: 4px;
+    box-shadow: -0.2em 0.2em 0.2em #7a3a44;
+}
+
+
+
+
+/* 下拉按钮样式 */
+button.dropbtn {
+    background-color: rgba(255, 255, 255, 0);
+    /*color: white;
+    padding: 5px;*/
+    width: 100%;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+}
+/* 容器 <div> - 需要定位下拉内容 */
+div.dropdown {
+    width: 100%;
+    position: relative;
+    display: inline-block;
+    justify-content: center;
+}
+
+/* 下拉内容 (默认隐藏) */
+div.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    width: 100%;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+/* 下拉菜单的链接 */
+div.dropdown-content a {
+    color: black;
+    padding: 3px;
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+}
+
+/* 鼠标移上去后修改下拉菜单链接颜色 */
+div.dropdown-content a:hover {background-color: #f1f1f1}
+
+/* 在鼠标移上去后显示下拉菜单 */
+div.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* 当下拉内容显示后修改下拉按钮的背景颜色 */
+button.dropdown:hover .dropbtn {
+    background-color: #3e8e41;
+}
+
+#container-plot{
+    width: 90%;
+    height: 90%;
+}
+
+#btn-copy{
+    /*color: white;
+    padding: 5px;*/
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+#footer-all-container{
+    width: 960px;
+    margin-top: 10px;
+}
+
+.footer .links li { float: left; }
+.links a { padding: 0 5px 0 6px; background: url(https://www.sciencellonline.com/skin/frontend/argento/default/images/links_div.gif) no-repeat 0 50% !important; white-space: nowrap; }
+.links li.first a { background: none !important; padding-left: 0; }
+.footer {  padding:10px; }
+.footer p { text-align:right; }
+.footer address { text-align:right; }
+.footer ul li { display:inline; }
+.footer-container{ text-align:center; }
+
+.footer { padding: 13px 0 0; font-size: .9em; }
+.footer a { color: #4c4c4c; }
+.footer .links a { text-decoration: none; }
+.footer .links a:hover { text-decoration: underline; }
+.footer address { float: left; }
+.footer .links { float: right; }
+
+#sfctlx7581nurux9kawghy9mxesltm39thp {
+	opacity: 0; }
